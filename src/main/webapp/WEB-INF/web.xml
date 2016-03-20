@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+							http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+		version="2.5">
+		
+<!-- 		项目名称 -->
+		<context-param>
+			<param-name>weieyuanRootKey</param-name>
+			<param-value>spring.mvc.one</param-value>
+		</context-param>
+		
+<!-- 		Spring的log4j监听器 -->
+		<listener>
+			<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+		</listener>
+		
+<!-- 		字符集过滤器 -->
+		<filter>
+			<filter-name>CharacterEncodingFilter</filter-name>
+			<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+			<init-param>
+				<param-name>encoding</param-name>
+				<param-value>UTF-8</param-value>
+			</init-param>
+			<init-param>
+				<param-name>forceEncoding</param-name>
+				<param-value>true</param-value>
+			</init-param>
+		</filter>
+		<filter-mapping>
+			<filter-name>CharacterEncodingFilter</filter-name>
+			<url-pattern>/*</url-pattern>
+		</filter-mapping>
+		
+<!-- 		view视图的分发器 -->
+		<servlet>
+			<servlet-name>dispatcher</servlet-name>
+			<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+			<init-param>
+				<param-name>contextConfigLocation</param-name>
+				<param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+			</init-param>
+			<load-on-startup>1</load-on-startup>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>dispatcher</servlet-name>
+			<url-pattern>/</url-pattern>
+		</servlet-mapping>
+	
+<!-- 	这个监听器可以加载其他配置文件中到spring应用的上下文中	 -->
+		<listener>
+			<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		</listener>
+		<context-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				/WEB-INF/conf/data-source.xml
+<!-- 				classpath:data-source.xml -->
+			</param-value>
+		</context-param>
+		
+		
+<!-- 		这种方式也可以避免静态资源被拦截 -->
+<!-- 		<servlet-mapping> -->
+<!-- 			<servlet-name>default</servlet-name> -->
+<!-- 			<url-pattern>*.jpg</url-pattern> -->
+<!-- 		</servlet-mapping> -->
+<!-- 		<servlet-mapping> -->
+<!-- 			<servlet-name>default</servlet-name> -->
+<!-- 			<url-pattern>*.js</url-pattern> -->
+<!-- 		</servlet-mapping> -->
+<!-- 		<servlet-mapping> -->
+<!-- 			<servlet-name>default</servlet-name> -->
+<!-- 			<url-pattern>*.css</url-pattern> -->
+<!-- 		</servlet-mapping>		 -->
+</web-app>

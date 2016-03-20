@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"   
+       xmlns:aop="http://www.springframework.org/schema/aop"   
+       xmlns:context="http://www.springframework.org/schema/context"  
+       xmlns:mvc="http://www.springframework.org/schema/mvc"   
+       xmlns:tx="http://www.springframework.org/schema/tx"   
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"  
+       xsi:schemaLocation="http://www.springframework.org/schema/aop   
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd   
+        http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd   
+        http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd   
+        http://www.springframework.org/schema/tx   
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+        
+        <mvc:annotation-driven />
+        <context:component-scan base-package="weieyuan"/>
+       
+        <!--         也可以使用下面这件话避免对静态资源的拦截 -->
+<!--         <mvc:resources location="/js/" mapping="/js/**"/> -->
+<!--         <mvc:resources location="/image/" mapping="/image/**"/> -->
+<!--         <mvc:resources location="/css/" mapping="/css/**"/> -->
+        
+<!--         也可以使用下面这件话避免对静态资源的拦截 -->
+<!-- 对进入DispatcherServlet的URL进行筛查，如果发现是静态资源的请求， -->
+<!-- 就将该请求转由Web应用服务器默认的Servlet处理， -->
+<!-- 如果不是静态资源的请求，才由DispatcherServlet继续处理 -->
+        <mvc:default-servlet-handler/>
+        
+        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+        	<property name="prefix" value="/WEB-INF/views/" />
+        	<property name="suffix" value=".jsp" />
+        </bean>
+        
+        
+<!--         springUtils提供获取spring应用上下文中bean对象的方法 -->
+        <bean id="springUtils" class="weieyuan.util.SpringUtils"></bean>
+        
+<!--         MappingJacksonHttpMessageConverter可以将java对象转换成json对象 -->
+<!-- Because Jackson 2 is on the classpath,  -->
+<!-- Spring’s MappingJackson2HttpMessageConverter is automatically chosen  -->
+<!-- to convert the Greeting instance to JSON. -->
+<!--         <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> -->
+<!--  			<property name="messageConverters"> -->
+<!-- 	  			<list> -->
+<!-- 	   				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" /> -->
+<!-- 	  			</list> -->
+<!--  			</property> -->
+<!-- 		</bean> -->
+        
+        
+<!--         dataSource -->
+<!--         <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" -->
+<!--         	lazy-init="false" -->
+<!--         	p:driverClassName = "com.mysql.jdbc.Driver" -->
+<!--         	p:url = "jdbc:mysql://localhost:3306/spring" -->
+<!--         	p:username = "root" -->
+<!--         	p:password = "weieyuan" /> -->
+       
+<!--        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate"> -->
+<!--        		<constructor-arg ref="dataSource"></constructor-arg> -->
+<!--        </bean> -->
+       
+<!--        <bean id="daoUtils" class="weieyuan.util.DaoUtils"> -->
+<!--            <property name="jdbcTemplate" ref="jdbcTemplate" /> -->
+<!--        </bean> -->
+       
+</beans>
+          
